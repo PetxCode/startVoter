@@ -14,6 +14,7 @@ interface User {
   orgEmail?: string;
   fullName?: string;
   email: string;
+  position: string;
   password: string;
   image?: string;
   voteCode?: string;
@@ -41,6 +42,9 @@ const userSchema = new mongoose.Schema(
       type: String,
     },
     orgName: {
+      type: String,
+    },
+    position: {
       type: String,
     },
     orgEmail: {

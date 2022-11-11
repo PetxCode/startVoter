@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Router } from "express";
 import {
   createVote,
   readVote,
@@ -6,7 +6,7 @@ import {
   // deleteVote,
 } from "../../controller/voters/legalVote";
 
-const router = express.Router();
+const router: Router = express.Router();
 
 router.route("/:id/:voterID/create").post(createVote);
 // router.route("/:id/:voterID").delete(deleteVote);

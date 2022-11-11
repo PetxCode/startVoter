@@ -49,8 +49,6 @@ import path from "path";
 type DestinationCallback = (error: Error | null, destination: string) => void;
 type FileNameCallback = (error: Error | null, filename: string) => void;
 
-const file = path.join(__dirname, "uploads");
-
 const storage = multer.diskStorage({
   destination: function (
     req: Request,

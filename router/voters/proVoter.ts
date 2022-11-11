@@ -1,12 +1,12 @@
-import express from "express";
+import express, { Router } from "express";
+const router: Router = express.Router();
+
 import {
   createVote,
   readVote,
   readYourVoters,
   // deleteVote,
 } from "../../controller/voters/proVoter";
-
-const router = express.Router();
 
 router.route("/:id/:voterID/create").post(createVote);
 // router.route("/:id/:voterID").delete(deleteVote);

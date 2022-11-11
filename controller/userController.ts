@@ -1,4 +1,3 @@
-import database from "../util/organisationData.json";
 import userModel from "../model/userModel";
 import organisationModel from "../model/organisationModel";
 import { Request, Response } from "express";
@@ -39,7 +38,7 @@ export const createUser = async (
         const val = Math.random() * 1000;
         const realToken = jwt.sign(val, "this is the Word");
 
-        const img = await cloudinary.uploader.upload(req.file?.path);
+        const img = await cloudinary.uploader.upload(req?.file!.path);
 
         const getUser = await userModel.create({
           fullName,
@@ -62,6 +61,10 @@ export const createUser = async (
         return res.json({
           message:
             "Account has been created, please check your mail to finish up the Process!",
+        });
+      } else {
+        return res.status(404).json({
+          message: `This ${organisationName} has reached their maximum entry of delegate!`,
         });
       }
     } else {
@@ -140,7 +143,7 @@ export const VerifiedUser = async (req: Request, res: Response) => {
 
       console.log("show Data: ", getUser);
 
-      verifiedByAdmin(getUser, generateToken).then((result) => {
+      verifiedByAdmin(getUser).then((result) => {
         console.log("sent: ", result);
       });
 
@@ -173,7 +176,7 @@ export const VerifiedUserFinally = async (req: Request, res: Response) => {
           { new: true }
         );
 
-        verifiedByAdminFinally(getUser, generateToken).then((result) => {
+        verifiedByAdminFinally(getUser).then((result) => {
           console.log("sent: ", result);
         });
 

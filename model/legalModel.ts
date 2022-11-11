@@ -8,7 +8,9 @@ interface User {
   voter?: {}[];
 }
 
-interface MainUser extends User, mongoose.Document {}
+interface MainUser extends User, mongoose.Document {
+  // _id: string;
+}
 
 const legalSchema = new mongoose.Schema(
   {

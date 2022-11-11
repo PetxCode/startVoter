@@ -1,6 +1,6 @@
-import cloud from "cloudinary";
+import cloud, { v2 } from "cloudinary";
 
-const cloudinary = cloud.v2;
+const cloudinary: typeof v2 = cloud.v2;
 
 cloudinary.config({
   cloud_name: "dv4dlmp4e",

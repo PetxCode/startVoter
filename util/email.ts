@@ -21,6 +21,7 @@ interface iData {
   orgName?: string;
   orgEmail?: string;
   fullName?: string;
+  position?: string;
   email: string;
   password: string;
   image?: string;
@@ -28,13 +29,15 @@ interface iData {
   token?: string;
   verified?: boolean;
   superAdmin?: boolean;
+  _id?: string;
+  MainUser?: {};
 }
 
 export const verifiedUser = async (
   email: string,
   fullName: string,
   realToken: string,
-  getUser: {}
+  getUser: iData
 ) => {
   try {
     const accessToken = await oAuth.getAccessToken();
@@ -74,10 +77,7 @@ export const verifiedUser = async (
   }
 };
 
-export const verifiedByAdmin = async (
-  generateToken: string,
-  getUser: iData
-) => {
+export const verifiedByAdmin = async (generateToken: iData) => {
   try {
     const accessToken = await oAuth.getAccessToken();
     const transporter = nodemailer.createTransport({
@@ -92,7 +92,7 @@ export const verifiedByAdmin = async (
       },
     });
 
-    console.log("userData: ", generateToken);
+    // console.log("userData: ", generateToken);
 
     const buildFile = path.join(__dirname, "../views/viewByAdmin.ejs");
 
@@ -118,10 +118,7 @@ export const verifiedByAdmin = async (
   }
 };
 
-export const verifiedByAdminFinally = async (
-  generateToken: string,
-  getUser: iData
-) => {
+export const verifiedByAdminFinally = async (generateToken: iData) => {
   try {
     const accessToken = await oAuth.getAccessToken();
     const transporter = nodemailer.createTransport({
@@ -162,7 +159,7 @@ export const verifiedByAdminFinally = async (
   }
 };
 
-export const verifiedSignUser = async (findUser: {}) => {
+export const verifiedSignUser = async (findUser: iData) => {
   try {
     const accessToken = await oAuth.getAccessToken();
     const transporter = nodemailer.createTransport({
@@ -200,7 +197,7 @@ export const verifiedSignUser = async (findUser: {}) => {
   }
 };
 
-export const resetMyPassword = async (name, user: {}, myToken: string) => {
+export const resetMyPassword = async (name, user: iData, myToken: string) => {
   try {
     const accessToken = await oAuth.getAccessToken();
     const transporter = nodemailer.createTransport({
@@ -240,7 +237,7 @@ export const resetMyPassword = async (name, user: {}, myToken: string) => {
 
 export const acceptance = async (
   email: string,
-  positioned: {},
+  positioned: iData,
   fullName: string
 ) => {
   try {

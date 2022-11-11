@@ -78,7 +78,15 @@ export const createPresident = async (
         user,
       });
 
-      acceptance(email!, positioned, fullName).then((result) => {
+      await userModel.findByIdAndUpdate(
+        req?.params.id,
+        {
+          position: "PRO",
+        },
+        { new: true }
+      );
+
+      acceptance(email!, user, fullName).then((result) => {
         console.log("sent: ", result);
       });
       // console.log("getting data: ", getUser);

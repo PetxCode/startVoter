@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Router } from "express";
 import {
   createOrganisation,
   getCandidates,
@@ -6,7 +6,7 @@ import {
   getOrganisationMembers,
 } from "../controller/organisationController";
 
-const router = express.Router();
+const router: Router = express.Router();
 
 router.route("/create").post(createOrganisation);
 

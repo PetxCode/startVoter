@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Router } from "express";
 import {
   createUser,
   readUsers,
@@ -16,7 +16,7 @@ import {
 
 import upload from "../util/multer";
 
-const router = express.Router();
+const router: Router = express.Router();
 
 router.route("/create").post(upload, createUser);
 router.route("/signin").post(signinUser);
