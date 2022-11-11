@@ -22,7 +22,7 @@ import socialVote from "./router/voters/socialVote";
 import proVote from "./router/voters/proVoter";
 import legalVote from "./router/voters/legalVote";
 
-const port: number = 2233;
+const port: number = 2231;
 const app: Application = express();
 
 const server = http.createServer(app);
