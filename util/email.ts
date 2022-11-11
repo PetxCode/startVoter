@@ -197,7 +197,11 @@ export const verifiedSignUser = async (findUser: iData) => {
   }
 };
 
-export const resetMyPassword = async (name, user: iData, myToken: string) => {
+export const resetMyPassword = async (
+  name: string,
+  user: iData,
+  myToken: string
+) => {
   try {
     const accessToken = await oAuth.getAccessToken();
     const transporter = nodemailer.createTransport({
