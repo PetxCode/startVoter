@@ -68,7 +68,7 @@ const db = mongoose.connection;
 //   });
 // });
 
-app.listen(port, () => {
+app.listen(process.env.PORT || port, () => {
   console.log("");
   console.log("server is now ready...!");
   console.log("");
