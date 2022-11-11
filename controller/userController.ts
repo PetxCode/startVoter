@@ -25,40 +25,45 @@ export const createUser = async (
     const findOrg = await organisationModel.findOne({
       organisationName,
     });
+
+    // findOrg?.user.length < 3;
+
     console.log("Org Name: ", findOrg);
     if (findOrg) {
-      const getOrganisation = await organisationModel.findById(findOrg._id);
+      if (findOrg?.user!.length < 3) {
+        const getOrganisation = await organisationModel.findById(findOrg._id);
 
-      const salt = await bcrypt.genSalt(10);
-      const hash = await bcrypt.hash(password, salt);
+        const salt = await bcrypt.genSalt(10);
+        const hash = await bcrypt.hash(password, salt);
 
-      const val = Math.random() * 1000;
-      const realToken = jwt.sign(val, "this is the Word");
+        const val = Math.random() * 1000;
+        const realToken = jwt.sign(val, "this is the Word");
 
-      const img = await cloudinary.uploader.upload(req.file?.path);
+        const img = await cloudinary.uploader.upload(req.file?.path);
 
-      const getUser = await userModel.create({
-        fullName,
-        email,
-        password: hash,
-        orgName: organisationName,
-        orgEmail: getOrganisation?.email,
-        token: realToken,
-        image: img.secure_url,
-        superAdmin: false,
-      });
+        const getUser = await userModel.create({
+          fullName,
+          email,
+          password: hash,
+          orgName: organisationName,
+          orgEmail: getOrganisation?.email,
+          token: realToken,
+          image: img.secure_url,
+          superAdmin: false,
+        });
 
-      getOrganisation?.user!.push(new mongoose.Types.ObjectId(getUser._id));
-      getOrganisation?.save();
+        getOrganisation?.user!.push(new mongoose.Types.ObjectId(getUser._id));
+        getOrganisation?.save();
 
-      verifiedUser(email, fullName, realToken, getUser).then((result) => {
-        console.log("sent: ", result);
-      });
+        verifiedUser(email, fullName, realToken, getUser).then((result) => {
+          console.log("sent: ", result);
+        });
 
-      return res.json({
-        message:
-          "Account has been created, please check your mail to finish up the Process!",
-      });
+        return res.json({
+          message:
+            "Account has been created, please check your mail to finish up the Process!",
+        });
+      }
     } else {
       return res.json({
         message: `You can't register because ${organisationName} doesn't exist`,
